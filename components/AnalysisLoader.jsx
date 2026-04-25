@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { MessageSquare, AlertTriangle, Cpu, Search, Siren } from "lucide-react";
 import { useState, useEffect } from "react";
 
-export default function AnalysisLoader({ onComplete }) {
+export default function AnalysisLoader({ onComplete, isDone }) {
   const [step, setStep] = useState(0);
   
   const steps = [
@@ -26,41 +26,42 @@ export default function AnalysisLoader({ onComplete }) {
   ];
 
   const [currentMessage, setCurrentMessage] = useState(funMessages[0]);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const msgInterval = setInterval(() => {
       setCurrentMessage(funMessages[Math.floor(Math.random() * funMessages.length)]);
-    }, 2000);
+    }, 3000);
     return () => clearInterval(msgInterval);
   }, []);
 
-  const [progress, setProgress] = useState(0);
-
   useEffect(() => {
+    if (isDone) {
+      setProgress(100);
+      return;
+    }
+
     const timer = setInterval(() => {
       setStep((prev) => {
-        if (prev === steps.length - 1) {
-          clearInterval(timer);
-          setTimeout(onComplete, 1000);
-          return prev;
-        }
+        if (prev === steps.length - 1) return prev;
         return prev + 1;
       });
-    }, 1500);
+    }, 4000);
 
-    // Smooth progress bar timer (total ~6-7s)
+    // Stuttering progress bar: Reaches ~80% in 120s
     const progressTimer = setInterval(() => {
       setProgress(prev => {
-        if (prev >= 99) return prev;
-        return prev + 1;
+        if (prev >= 80) return prev;
+        const increment = Math.floor(Math.random() * 4) + 1; // 1~4%
+        return Math.min(80, prev + increment);
       });
-    }, 60);
+    }, 4000);
     
     return () => {
       clearInterval(timer);
       clearInterval(progressTimer);
     };
-  }, [onComplete]);
+  }, [isDone]);
 
   return (
     <div className="w-full max-w-lg mx-auto flex flex-col items-center justify-center p-8 bg-white rounded-3xl border border-slate-200 shadow-xl">

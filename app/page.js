@@ -117,7 +117,7 @@ export default function Home() {
                 exit={{ opacity: 0, y: -20 }}
                 className="w-full"
               >
-                <AnalysisLoader />
+                <AnalysisLoader isDone={!!analysisResult} />
               </motion.div>
             )}
 
