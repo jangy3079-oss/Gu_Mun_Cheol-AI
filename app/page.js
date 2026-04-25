@@ -32,11 +32,10 @@ export default function Home() {
         const ratios = await runDLModel(features);
         
         // Inject the DL model's numerical ratios into Gemini's text placeholders
-        const final_analysis_conclusion = (analysis_conclusion || "")
-          .replace("{ME_RATIO}", ratios.me)
-          .replace("{OTHER_RATIO}", ratios.other);
+        // We forcefully reconstruct the conclusion string to ensure 100% consistency with the DL model
+        const safe_conclusion = `최종 결론! 상대방 차량 과실 ${ratios.other}%, 블박차(본인) 과실 ${ratios.me}%로 봅니다!`;
         
-        return { features, timeline, ratios, analysis_text, analysis_bubbles, analysis_conclusion: final_analysis_conclusion };
+        return { features, timeline, ratios, analysis_text, analysis_bubbles, analysis_conclusion: safe_conclusion };
       })();
 
       const [result] = await Promise.all([apiPromise, minLoaderTime]);
