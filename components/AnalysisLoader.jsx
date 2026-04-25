@@ -34,6 +34,8 @@ export default function AnalysisLoader({ onComplete }) {
     return () => clearInterval(msgInterval);
   }, []);
 
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setStep((prev) => {
@@ -45,8 +47,19 @@ export default function AnalysisLoader({ onComplete }) {
         return prev + 1;
       });
     }, 1500);
+
+    // Smooth progress bar timer (total ~6-7s)
+    const progressTimer = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 99) return prev;
+        return prev + 1;
+      });
+    }, 60);
     
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      clearInterval(progressTimer);
+    };
   }, [onComplete]);
 
   return (
@@ -116,6 +129,22 @@ export default function AnalysisLoader({ onComplete }) {
             </motion.div>
           );
         })}
+      </div>
+
+      {/* Progress Bar */}
+      <div className="w-full mt-10 space-y-2">
+        <div className="flex justify-between text-xs font-bold text-slate-500 px-1">
+          <span>AI 과실 분석 진행도</span>
+          <span className="text-emerald-600">{progress}%</span>
+        </div>
+        <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+          <motion.div 
+            className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500"
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+          />
+        </div>
       </div>
     </div>
   );
