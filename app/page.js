@@ -24,6 +24,7 @@ export default function Home() {
         const data = await analyzeWithGemini(file);
         const features = data.summary;
         const timeline = data.timeline;
+        const analysis_text = data.analysis_text;
         const analysis_bubbles = data.analysis_bubbles;
         const analysis_conclusion = data.analysis_conclusion;
         
@@ -35,7 +36,7 @@ export default function Home() {
           .replace("{ME_RATIO}", ratios.me)
           .replace("{OTHER_RATIO}", ratios.other);
         
-        return { features, timeline, ratios, analysis_bubbles, analysis_conclusion: final_analysis_conclusion };
+        return { features, timeline, ratios, analysis_text, analysis_bubbles, analysis_conclusion: final_analysis_conclusion };
       })();
 
       const [result] = await Promise.all([apiPromise, minLoaderTime]);

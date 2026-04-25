@@ -28,7 +28,7 @@ export default function ResultDashboard({ data }) {
 
   if (!data) return null;
 
-  const { timeline, ratios, analysis_bubbles, analysis_conclusion } = data;
+  const { timeline, ratios, analysis_text, analysis_bubbles, analysis_conclusion } = data;
 
   return (
     <motion.div 
@@ -52,10 +52,22 @@ export default function ResultDashboard({ data }) {
         </div>
         <div className="max-w-[90%] md:max-w-[85%] bg-white px-6 py-6 rounded-3xl rounded-tl-sm shadow-md border border-slate-200 space-y-8">
           
-          {/* 1. Han Moon-chul Analysis Bubbles */}
+          {/* 1. Han Moon-chul Analysis Text (줄글) */}
+          <div className="space-y-4">
+            <h3 className="font-bold text-lg flex items-center gap-2 text-slate-800">
+              <Zap className="w-5 h-5 text-amber-500" /> 종합 과실 판독
+            </h3>
+            <p className="text-slate-700 leading-relaxed whitespace-pre-wrap text-base">
+              {analysis_text || "분석 텍스트를 불러오지 못했습니다."}
+            </p>
+          </div>
+
+          <div className="h-px w-full bg-slate-100" />
+
+          {/* 2. Han Moon-chul Analysis Bubbles (핵심 장면) */}
           <div className="space-y-6">
             <h3 className="font-bold text-lg flex items-center gap-2 text-slate-800">
-              <Zap className="w-5 h-5 text-amber-500" /> 구문철 AI의 블랙박스 분석
+              <ShieldAlert className="w-5 h-5 text-rose-500" /> 핵심 장면 판독
             </h3>
             
             <div className="space-y-6">
