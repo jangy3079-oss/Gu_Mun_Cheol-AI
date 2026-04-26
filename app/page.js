@@ -4,11 +4,11 @@ import { useState } from "react";
 import FileUploader from "@/components/FileUploader";
 import AnalysisLoader from "@/components/AnalysisLoader";
 import ResultDashboard from "@/components/ResultDashboard";
-import { Gavel, Siren } from "lucide-react";
+import { Gavel, Siren, BrainCircuit } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 import { analyzeWithGemini } from "@/lib/gemini-api";
-
 export default function Home() {
   const [stage, setStage] = useState("upload"); // upload | analyze | result
   const [analysisResult, setAnalysisResult] = useState(null); // combined result
@@ -80,9 +80,16 @@ export default function Home() {
                <p className="text-xs text-slate-500 font-medium">카톡 싸움 과실비율 초고속 판독기</p>
              </div>
           </div>
-          <button className="hidden sm:flex items-center gap-2 bg-white hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-semibold transition-colors border border-slate-200 shadow-sm text-slate-700">
-            <Gavel className="w-4 h-4 text-emerald-500" /> 법률 자문 연결
-          </button>
+          <div className="flex items-center gap-3">
+            <Link href="/about">
+              <button className="flex items-center gap-2 bg-white hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-semibold transition-colors border border-slate-200 shadow-sm text-slate-700">
+                <BrainCircuit className="w-4 h-4 text-cyan-500" /> 프로젝트 & 모델 소개
+              </button>
+            </Link>
+            <button className="hidden sm:flex items-center gap-2 bg-white hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-semibold transition-colors border border-slate-200 shadow-sm text-slate-700">
+              <Gavel className="w-4 h-4 text-emerald-500" /> 법률 자문 연결
+            </button>
+          </div>
         </header>
 
         {/* Main Content Area */}
