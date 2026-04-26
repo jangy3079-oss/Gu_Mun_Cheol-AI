@@ -48,6 +48,9 @@ export default function AboutPage() {
                 <strong>구문철 AI</strong>는 카카오톡 대화 내용 캡처본을 분석하여, 누가 더 잘못했는지 과실 비율을 유쾌하게 판독해주는 AI 서비스입니다. 
                 단순히 텍스트의 맥락만을 파악하는 것을 넘어, 한국인 특유의 <strong>기싸움 패턴('ㅋ'의 개수, 마침표 사용 여부, 답장 시간 등)</strong>을 수치화하여 딥러닝 모델에 학습시켰습니다.
               </p>
+              <p className="text-slate-600 leading-relaxed text-lg mb-4">
+                사실 이 서비스는 개발자가 몇 년 전 만났던 전 여자친구와 겪었던 일들에서 영감을 받아 제작되었습니다. 대화 중 미묘한 말투의 변화나 'ㅋ' 하나로 달라지는 분위기를 데이터로 분석해보고자 하는 마음에서 시작되었습니다.
+              </p>
               <p className="text-slate-600 leading-relaxed text-lg">
                 최신 LLM(Gemini 1.5 Pro)과 경량화된 Neural Network(TensorFlow.js)를 결합하여, 브라우저 상에서 즉각적이고 재미있는 결과를 제공합니다.
               </p>
